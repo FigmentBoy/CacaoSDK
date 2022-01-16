@@ -99,7 +99,11 @@ int main(int argc, char** argv) {
         }
         for (auto m : cd.members) {
         	char const* used_format;
-        	if (m.hardcode) used_format = format_strings::hardcode_definition;
+        	if (m.hardcode) {
+                if (CacShare::getHardcode(m).size() == 0)
+                    continue; // Not Implemented
+                used_format = format_strings::hardcode_definition;
+            }
         	else used_format = format_strings::member_definition;
         	output += fmt::format(used_format,
                 fmt::arg("type", m.type),
